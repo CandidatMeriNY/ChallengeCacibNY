@@ -1,20 +1,22 @@
+using ChallengeCacibNY.Core.Data;
+using ChallengeCacibNY.Core.Logic;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddScoped<IStackDataManager, StackDataManager>();
+builder.Services.AddScoped<IItemChecker, ItemChecker>();
+builder.Services.AddScoped<ICalculator, Calculator>();
+builder.Services.AddScoped<IStackAdder, StackAdder>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
