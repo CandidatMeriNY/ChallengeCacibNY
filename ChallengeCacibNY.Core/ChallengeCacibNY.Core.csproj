@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Data\" />
+    <PackageReference Include="Microsoft.FASTER.Core" Version="2.6.3" />
   </ItemGroup>
 
 </Project>
