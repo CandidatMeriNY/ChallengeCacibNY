@@ -82,5 +82,42 @@ namespace ChallengeCacibNY.Tests
             Response response = await _sut.Create(item);
             Assert.False(response.IsSuccess);
         }
+
+        [Test]
+        [TestCase(1, "10")]
+        [TestCase(2, "20")]
+        [TestCase(3, "+")]
+        public async Task UpdateReturnsSuccessIfFound(int id, string item)
+        {
+            _dataManagerMock.Setup(m => m.Get(It.IsAny<int>())).ReturnsAsync(sampleStack);
+            _dataManagerMock.Setup(m => m.UpdateOrInsert(It.IsAny<int>(), It.IsAny<StackValue>()));
+            _stackAdderMock.Setup(m => m.Add(It.IsAny<StackValue>(), It.IsAny<string>())).Returns(sampleStack);
+            Response response = await _sut.Update(id, item);
+            Assert.True(response.IsSuccess);
+        }
+
+        [Test]
+        [TestCase(1, "10")]
+        [TestCase(2, "20")]
+        [TestCase(3, "+")]
+        public async Task UpdateReturnsErrorIfNotFound(int id, string item)
+        {
+            _dataManagerMock.Setup(m => m.Get(It.IsAny<int>())).ReturnsAsync(nullStack);
+            _dataManagerMock.Setup(m => m.UpdateOrInsert(It.IsAny<int>(), It.IsAny<StackValue>()));
+            _stackAdderMock.Setup(m => m.Add(It.IsAny<StackValue>(), It.IsAny<string>())).Returns(sampleStack);
+            Response response = await _sut.Update(id, item);
+            Assert.False(response.IsSuccess);
+        }
+
+        [Test]
+        [TestCase(1, "10")]
+        [TestCase(2, "20")]
+        [TestCase(3, "+")]
+        public async Task UpdateReturnsErrorIfException(int id, string item)
+        {
+            _dataManagerMock.Setup(m => m.Get(It.IsAny<int>())).ThrowsAsync(new Exception());
+            Response response = await _sut.Update(id, item);
+            Assert.False(response.IsSuccess);
+        }
     }
 }

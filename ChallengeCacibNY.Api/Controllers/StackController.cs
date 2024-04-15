@@ -1,4 +1,5 @@
 ﻿using ChallengeCacibNY.Api.Responses;
+using ChallengeCacibNY.Core;
 using ChallengeCacibNY.Core.Data;
 using ChallengeCacibNY.Core.Logic;
 using ChallengeCacibNY.Core.Models;
@@ -27,7 +28,7 @@ namespace ChallengeCacibNY.Api.Controllers
                 var v = await _dataManager.Get(id);
                 if (v == null)
                 {
-                    return new StackResponse { IsSuccess = false, Message = "Not found" };
+                    return new StackResponse { IsSuccess = false, Message = Constants.NotFound };
                 }
 
                 return new StackResponse { IsSuccess = true, Content = v };
@@ -52,6 +53,27 @@ namespace ChallengeCacibNY.Api.Controllers
                 }, item);
                 await _dataManager.UpdateOrInsert(id, stack);
                 return new StackResponse { IsSuccess = true, Content = stack };
+            }
+            catch (Exception ex)
+            {
+                return new StackResponse { IsSuccess = false, Message = ex.Message };
+            }
+        }
+
+        [HttpPut]
+        public async Task<StackResponse> Update(int id, [FromBody] string item)
+        {
+            try
+            {
+                var existing = await _dataManager.Get(id);
+                if (existing != null)
+                {
+                    var update = _stackAdder.Add(existing, item);
+                    update.Updated = DateTime.UtcNow;
+                    await _dataManager.UpdateOrInsert(id, update);
+                    return new StackResponse { IsSuccess = true, Content = update };
+                }
+                return new StackResponse { IsSuccess = false, Message = Constants.NotFound };
             }
             catch (Exception ex)
             {
