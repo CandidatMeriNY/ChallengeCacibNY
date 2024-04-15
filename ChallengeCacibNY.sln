@@ -8,7 +8,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F67C32B4-63D7-4CCE-B655-11AAFCD4047F}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		RoadMap.md = RoadMap.md
+		ToDo.md = ToDo.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChallengeCacibNY.Api", "ChallengeCacibNY.Api\ChallengeCacibNY.Api.csproj", "{C9605190-2678-4159-8FF3-DD30873D6A64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChallengeCacibNY.Tests", "ChallengeCacibNY.Tests\ChallengeCacibNY.Tests.csproj", "{67D9D6CC-0225-4B05-8F4A-FE04FA9A17D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +26,14 @@ Global
 		{E6302F14-DF00-43C2-B9D6-99CF911C082A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6302F14-DF00-43C2-B9D6-99CF911C082A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6302F14-DF00-43C2-B9D6-99CF911C082A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9605190-2678-4159-8FF3-DD30873D6A64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9605190-2678-4159-8FF3-DD30873D6A64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9605190-2678-4159-8FF3-DD30873D6A64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9605190-2678-4159-8FF3-DD30873D6A64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67D9D6CC-0225-4B05-8F4A-FE04FA9A17D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67D9D6CC-0225-4B05-8F4A-FE04FA9A17D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67D9D6CC-0225-4B05-8F4A-FE04FA9A17D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67D9D6CC-0225-4B05-8F4A-FE04FA9A17D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
