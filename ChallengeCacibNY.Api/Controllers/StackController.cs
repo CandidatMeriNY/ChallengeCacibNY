@@ -80,5 +80,24 @@ namespace ChallengeCacibNY.Api.Controllers
                 return new StackResponse { IsSuccess = false, Message = ex.Message };
             }
         }
+
+        [HttpDelete]
+        public async Task<Response> Delete(int id)
+        {
+            try
+            {
+                var existing = await _dataManager.Get(id);
+                if (existing != null)
+                {
+                    await _dataManager.Delete(id);
+                    return new Response { IsSuccess = true };
+                }
+                return new Response { IsSuccess = false, Message = Constants.NotFound };
+            }
+            catch (Exception ex)
+            {
+                return new Response { IsSuccess = false, Message = ex.Message };
+            }
+        }
     }
 }

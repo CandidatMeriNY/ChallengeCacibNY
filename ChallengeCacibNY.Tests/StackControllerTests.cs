@@ -119,5 +119,38 @@ namespace ChallengeCacibNY.Tests
             Response response = await _sut.Update(id, item);
             Assert.False(response.IsSuccess);
         }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public async Task DeleteReturnsSuccessIfStackFound(int id)
+        {
+            _dataManagerMock.Setup(m => m.Get(It.IsAny<int>())).ReturnsAsync(sampleStack);
+            Response response = await _sut.Delete(id);
+            Assert.True(response.IsSuccess);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public async Task DeleteReturnsErrorIfStackNotFound(int id)
+        {
+            _dataManagerMock.Setup(m => m.Get(It.IsAny<int>())).ReturnsAsync(nullStack);
+            Response response = await _sut.Delete(id);
+            Assert.False(response.IsSuccess);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public async Task DeleteReturnsErrorIfException(int id)
+        {
+            _dataManagerMock.Setup(m => m.Get(It.IsAny<int>())).ThrowsAsync(new Exception());
+            Response response = await _sut.Delete(id);
+            Assert.False(response.IsSuccess);
+        }
     }
 }
