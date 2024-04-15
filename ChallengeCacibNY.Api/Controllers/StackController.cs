@@ -1,6 +1,7 @@
 ﻿using ChallengeCacibNY.Api.Responses;
 using ChallengeCacibNY.Core.Data;
 using ChallengeCacibNY.Core.Logic;
+using ChallengeCacibNY.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChallengeCacibNY.Api.Controllers
@@ -30,6 +31,27 @@ namespace ChallengeCacibNY.Api.Controllers
                 }
 
                 return new StackResponse { IsSuccess = true, Content = v };
+            }
+            catch (Exception ex)
+            {
+                return new StackResponse { IsSuccess = false, Message = ex.Message };
+            }
+        }
+
+        [HttpPost]
+        public async Task<StackResponse> Create([FromBody] string item)
+        {
+            try
+            {
+                var id = StackDataManager.MaxId + 1;
+                var stack = _stackAdder.Add(new StackValue()
+                {
+                    Id = id,
+                    Created = DateTime.UtcNow,
+                    Updated = DateTime.UtcNow
+                }, item);
+                await _dataManager.UpdateOrInsert(id, stack);
+                return new StackResponse { IsSuccess = true, Content = stack };
             }
             catch (Exception ex)
             {

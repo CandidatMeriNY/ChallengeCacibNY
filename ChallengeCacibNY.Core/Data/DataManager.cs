@@ -20,7 +20,7 @@ namespace ChallengeCacibNY.Core.Data
         private static FasterKVSettings<I, V> storeSettings { get; set; }
         private static FasterKV<I, V> store { get; set; }
 
-        public static I MaxId { get; set; }
+        public static I MaxId { get; private set; }
 
         public async Task<V> Get(I id)
         {

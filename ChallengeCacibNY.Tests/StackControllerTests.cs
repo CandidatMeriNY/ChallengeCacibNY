@@ -58,5 +58,29 @@ namespace ChallengeCacibNY.Tests
             Response response = await _sut.Get(id);
             Assert.False(response.IsSuccess);
         }
+
+        [Test]
+        [TestCase("10")]
+        [TestCase("20")]
+        [TestCase("+")]
+        public async Task CreateReturnsSuccessIfNoError(string item)
+        {
+            _dataManagerMock.Setup(m => m.UpdateOrInsert(It.IsAny<int>(), It.IsAny<StackValue>()));
+            _stackAdderMock.Setup(m => m.Add(It.IsAny<StackValue>(), It.IsAny<string>())).Returns(sampleStack);
+            Response response = await _sut.Create(item);
+            Assert.True(response.IsSuccess);
+        }
+
+        [Test]
+        [TestCase("10")]
+        [TestCase("20")]
+        [TestCase("+")]
+        public async Task CreateReturnsErrorIfException(string item)
+        {
+            _dataManagerMock.Setup(m => m.UpdateOrInsert(It.IsAny<int>(), It.IsAny<StackValue>())).Throws(new Exception());
+            _stackAdderMock.Setup(m => m.Add(It.IsAny<StackValue>(), It.IsAny<string>())).Returns(sampleStack);
+            Response response = await _sut.Create(item);
+            Assert.False(response.IsSuccess);
+        }
     }
 }
